@@ -4,3 +4,17 @@
 https://levelup.gitconnected.com/nifty-odoo-orm-methods-324152490697
 
 https://freedium.cfd/https://levelup.gitconnected.com/the-6-things-every-good-software-developer-i-know-religiously-does-fd6dd9c2c8f7
+
+You can remove elements from a many2many field on a few ways. You can either delete a specific record and the relation if you know it:
+
+(2, ID) remove and delete the linked record with id = ID (calls unlink on ID, that will delete the object completely, and the link to it as well)
+Or you can only delete the link to the remote record:
+
+(3, ID) cut the link to the linked record with id = ID (delete the relationship between the two objects but does not delete the target object itself)
+Or if you want to unlink all records (without deleting the remote record) on a many2many directly you can do it like this:
+
+(5) unlink all (like using (3,ID) for all linked records)
+Or if you want to delete all records:
+
+(6, 0, []) replace the list of linked IDs (like using (5) then (4,ID) for each ID in the list of IDs)
+because we use [] it'll drop all records.
